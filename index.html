@@ -7,7 +7,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <title>💜 Mami · tu espacio</title>
     <style>
-        /* ===== PALETA CLARA (original) ===== */
+        /* ===== PALETA LILA Y ESTILO GLASS ===== */
         :root {
             --blanco: #ffffff;
             --lila-clarisimo: #f3e5f5;
@@ -15,7 +15,9 @@
             --lila-medio: #ce93d8;
             --lila-intenso: #6a1b9a;
             --texto-oscuro: #4a2c5a;
-            --sombra-lila: rgba(106, 27, 154, 0.15);
+            --sombra: rgba(106, 27, 154, 0.15);
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.3);
         }
 
         * {
@@ -39,6 +41,7 @@
             overflow-x: hidden;
         }
 
+        /* ===== AVISO SAFARI ===== */
         .safari-notice {
             display: none;
             position: fixed;
@@ -82,6 +85,7 @@
             border: 2px solid var(--lila-intenso);
         }
 
+        /* ===== PANTALLA DE BIENVENIDA (sin emojis) ===== */
         .welcome-screen {
             position: fixed;
             top: 0;
@@ -126,24 +130,37 @@
             position: relative;
             z-index: 1;
             max-width: 400px;
-            background: rgba(255,255,255,0.8);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border-radius: 40px;
             padding: 2.5rem 2rem;
             box-shadow: 0 20px 50px rgba(106,27,154,0.1);
-            border: 2px solid var(--lila-medio);
+            border: 1px solid var(--glass-border);
             animation: fadeInUp 0.8s ease;
         }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        .welcome-emoji { font-size: 4rem; margin-bottom: 0.5rem; animation: bounceWelcome 1.5s ease-in-out infinite; }
-        @keyframes bounceWelcome { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-15px);} }
-        .welcome-title { font-size: 2.2rem; font-weight: 700; color: var(--texto-oscuro); margin-bottom: 0.3rem; }
-        .welcome-title .name { color: var(--lila-intenso); font-size: 2.6rem; }
-        .welcome-subtitle { font-size: 1rem; color: var(--lila-intenso); margin-bottom: 1.5rem; font-style: italic; line-height: 1.5; }
+        .welcome-title {
+            font-size: 2.6rem;
+            font-weight: 700;
+            color: var(--texto-oscuro);
+            margin-bottom: 0.3rem;
+            letter-spacing: -0.5px;
+        }
+        .welcome-title .name {
+            color: var(--lila-intenso);
+        }
+        .welcome-subtitle {
+            font-size: 1rem;
+            color: var(--lila-intenso);
+            margin-bottom: 1.5rem;
+            font-style: italic;
+            line-height: 1.5;
+            opacity: 0.8;
+        }
         .welcome-btn {
             background: linear-gradient(135deg, var(--lila-medio), var(--lila-intenso));
-            border: 2px solid var(--lila-medio);
+            border: none;
             color: var(--blanco);
             font-weight: 700;
             font-size: 1.3rem;
@@ -158,7 +175,13 @@
             letter-spacing: 1px;
         }
         .welcome-btn:active { transform: scale(0.95); box-shadow: 0 4px 15px rgba(106,27,154,0.15); }
-        .welcome-footer { font-size: 0.75rem; color: var(--lila-intenso); margin-top: 1rem; opacity: 0.7; }
+        .welcome-footer {
+            font-size: 0.75rem;
+            color: var(--lila-intenso);
+            margin-top: 1rem;
+            opacity: 0.6;
+            letter-spacing: 0.5px;
+        }
 
         .app-container {
             width: 100%; max-width: 520px; display: flex; flex-direction: column;
@@ -190,27 +213,30 @@
         }
         .toast.show { transform: translateX(-50%) translateY(0); }
 
+        /* ===== MAIN CONTENT ===== */
         .main-content {
             width: 100%;
-            background: rgba(255,255,255,0.85);
+            background: var(--glass-bg);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             border-radius: 48px 16px 48px 16px;
             padding: 1.8rem 1.2rem;
             text-align: center;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.04), 0 0 0 2px var(--lila-medio) inset;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.04), 0 0 0 1px var(--glass-border) inset;
             transition: opacity 0.4s, transform 0.4s;
             margin: 0 auto;
+            border: 1px solid var(--glass-border);
         }
         .main-content.hidden { opacity: 0; transform: scale(0.95); pointer-events: none; position: absolute; visibility: hidden; }
 
+        /* ===== MÚSICA ===== */
         .music-header {
-            background: rgba(255,255,255,0.5);
+            background: rgba(255,255,255,0.4);
             border-radius: 20px;
             padding: 0.8rem 1rem;
             margin-bottom: 1.2rem;
-            border: 2px solid var(--lila-medio);
-            box-shadow: 0 0 15px rgba(106,27,154,0.06);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(4px);
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -225,7 +251,7 @@
         .track-name-display { font-weight: 700; color: var(--texto-oscuro); font-size: 0.95rem; }
         .music-controls { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
         .mini-music-btn {
-            width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--lila-medio);
+            width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--glass-border);
             background: var(--blanco); cursor: pointer; font-size: 1rem; display: flex; align-items: center;
             justify-content: center; transition: all 0.2s; color: var(--lila-intenso);
         }
@@ -246,19 +272,20 @@
             font-size: 1rem; font-weight: 500; color: var(--lila-intenso);
             background: rgba(106,27,154,0.06);
             padding: 0.3rem 1.6rem; border-radius: 60px; display: inline-block; margin-bottom: 1rem;
-            border: 1px solid var(--lila-medio);
+            border: 1px solid var(--glass-border);
         }
 
+        /* ===== FRASE CARRUSEL ===== */
         .frase-block {
-            background: rgba(255,255,255,0.5);
+            background: rgba(255,255,255,0.4);
             border-radius: 32px; padding: 0.9rem 1rem;
-            border: 2px solid var(--lila-medio); margin-bottom: 1rem;
-            box-shadow: 0 0 15px rgba(106,27,154,0.06);
+            border: 1px solid var(--glass-border); margin-bottom: 1rem;
+            backdrop-filter: blur(4px);
         }
         .frase-block .label { font-weight: 600; color: var(--lila-intenso); font-size: 0.85rem; letter-spacing: 1px; }
         .frase-block .frase-texto {
             font-style: italic; color: var(--texto-oscuro); font-size: 1rem; line-height: 1.5; min-height: 3.2rem;
-            padding: 0.3rem 0.5rem; background: rgba(255,255,255,0.4); border-radius: 20px; margin: 0.2rem 0;
+            padding: 0.3rem 0.5rem; background: rgba(255,255,255,0.3); border-radius: 20px; margin: 0.2rem 0;
         }
         .frase-block .frase-autor { font-size: 0.8rem; color: var(--lila-intenso); font-weight: 500; text-align: right; padding-right: 0.8rem; }
         .frase-block .boton-frase {
@@ -271,11 +298,12 @@
         .frase-block .boton-frase:active { transform: scale(0.94); opacity: 0.8; }
         .frase-counter { font-size: 0.8rem; color: var(--lila-intenso); margin-top: 0.2rem; }
 
+        /* ===== PREGUNTA DE AMOR ===== */
         .love-block {
-            background: rgba(255,255,255,0.5);
+            background: rgba(255,255,255,0.4);
             border-radius: 32px; padding: 1.2rem 1rem;
-            border: 2px solid var(--lila-medio); margin-bottom: 1.4rem;
-            box-shadow: 0 0 15px rgba(106,27,154,0.06);
+            border: 1px solid var(--glass-border); margin-bottom: 1.4rem;
+            backdrop-filter: blur(4px);
         }
         .love-block .pregunta { font-size: 1.8rem; font-weight: 700; color: var(--texto-oscuro); margin-bottom: 0.8rem; }
         .love-buttons {
@@ -292,26 +320,27 @@
         .love-btn--si {
             background: linear-gradient(135deg, var(--lila-medio), var(--lila-intenso));
             color: var(--blanco);
-            border: 2px solid var(--lila-medio);
+            border: 1px solid var(--glass-border);
         }
         .love-btn--no {
-            background: linear-gradient(135deg, var(--lila-claro), var(--lila-clarisimo));
+            background: var(--blanco);
             color: var(--texto-oscuro);
-            border: 2px solid var(--lila-medio);
+            border: 1px solid var(--glass-border);
             transition: left 0.2s, top 0.2s, transform 0.2s;
         }
-        .love-btn--no:active { background: var(--lila-medio); color: var(--blanco); }
+        .love-btn--no:active { background: var(--lila-claro); }
         .love-response { margin-top: 0.8rem; font-size: 1.3rem; font-weight: 600; color: var(--lila-intenso); min-height: 3rem; }
 
         .btn-jugar {
             background: linear-gradient(135deg, var(--lila-medio), var(--lila-intenso));
-            border: 2px solid var(--lila-medio);
+            border: none;
             color: var(--blanco);
             font-weight: 700; font-size: 1.4rem; padding: 0.8rem 2.5rem;
             border-radius: 60px; cursor: pointer; -webkit-appearance: none; touch-action: manipulation;
             transition: 0.15s; min-height: 60px; margin: 0.8rem 0 1.2rem;
             box-shadow: 0 6px 20px rgba(106,27,154,0.2);
             width: 100%;
+            border: 1px solid var(--glass-border);
         }
         .btn-jugar:active { transform: scale(0.96); opacity: 0.8; }
 
@@ -324,7 +353,7 @@
         }
         .mode-nav button {
             background: rgba(255,255,255,0.6);
-            border: 2px solid var(--lila-medio);
+            border: 1px solid var(--glass-border);
             padding: 0.5rem 1.2rem;
             border-radius: 60px;
             font-weight: 600;
@@ -332,7 +361,6 @@
             cursor: pointer;
             -webkit-appearance: none; touch-action: manipulation; transition: 0.15s;
             font-size: 0.9rem; min-height: 44px; backdrop-filter: blur(2px);
-            box-shadow: 0 0 8px rgba(106,27,154,0.05);
         }
         .mode-nav button:active { transform: scale(0.94); }
         .mode-nav button.active {
@@ -345,20 +373,49 @@
         .modo { display: none; animation: fadeIn 0.25s ease; }
         .modo.active { display: block; }
 
+        /* ===== EXAMEN DE FONOAUDIOLOGÍA ===== */
+        .game-container {
+            background: rgba(255,255,255,0.3);
+            border-radius: 32px; padding: 1.6rem 1.2rem;
+            border: 1px solid var(--glass-border); min-height: 260px;
+            backdrop-filter: blur(4px);
+            display: flex; flex-direction: column; justify-content: space-between;
+        }
+        .question-counter { font-weight: 600; color: var(--lila-intenso); text-align: left; font-size: 0.85rem; margin-bottom: 0.4rem; }
+        .question-text { font-size: 1.2rem; font-weight: 600; color: var(--texto-oscuro); text-align: left; margin-bottom: 1.2rem; min-height: 3.6rem; line-height: 1.5; }
+        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 0.5rem; }
+        .option-btn {
+            background: var(--blanco); border: 1px solid var(--glass-border); color: var(--texto-oscuro); font-weight: 600;
+            font-size: 1rem; padding: 0.8rem 0.5rem; border-radius: 60px; cursor: pointer;
+            transition: background 0.15s, border 0.15s; -webkit-appearance: none;
+            touch-action: manipulation; user-select: none; min-height: 48px;
+        }
+        .option-btn:active { transform: scale(0.94); background: var(--lila-clarisimo); }
+        .option-btn:disabled { opacity: 0.6; transform: scale(0.98); }
+        .option-btn.correct { background: #d4edda; border-color: #5cb85c; color: #1e5a2a; }
+        .option-btn.incorrect { background: #f8d7da; border-color: #d9534f; color: #721c24; }
+
+        .lose-container {
+            display: none; flex-direction: column; align-items: center; justify-content: center;
+            background: rgba(255,255,255,0.3); border-radius: 32px; padding: 2rem 1.5rem;
+            border: 1px solid var(--glass-border); min-height: 240px; animation: fadeIn 0.3s ease;
+            backdrop-filter: blur(4px);
+        }
+        .lose-container .emoji { font-size: 4rem; margin-bottom: 0.5rem; }
+        .lose-container .msg { font-size: 1.3rem; font-weight: 700; color: var(--lila-intenso); line-height: 1.4; }
+        .lose-container .sub-msg { font-size: 1rem; color: var(--texto-oscuro); margin-bottom: 1.2rem; opacity: 0.8; font-style: italic; }
+
+        /* ===== MEMORIA ===== */
         .memory-container {
-            background: rgba(255,255,255,0.4);
-            backdrop-filter: blur(2px);
-            border-radius: 32px;
-            padding: 1rem;
-            border: 2px solid var(--lila-medio);
-            box-shadow: 0 0 15px rgba(106,27,154,0.06);
+            background: rgba(255,255,255,0.3);
+            border-radius: 32px; padding: 1rem;
+            border: 1px solid var(--glass-border); backdrop-filter: blur(4px);
         }
         .memory-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem; }
         .memory-header span {
             font-weight: 600; color: var(--texto-oscuro);
-            background: rgba(255,255,255,0.6);
-            padding: 0.2rem 1rem;
-            border-radius: 60px; font-size: 0.9rem; border: 1px solid var(--lila-medio);
+            background: rgba(255,255,255,0.6); padding: 0.2rem 1rem;
+            border-radius: 60px; font-size: 0.9rem; border: 1px solid var(--glass-border);
         }
         .memory-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-bottom: 0.5rem; }
         .memory-card {
@@ -366,7 +423,7 @@
             background: linear-gradient(135deg, var(--lila-medio), var(--lila-intenso));
             border-radius:16px;
             display:flex; align-items:center; justify-content:center; font-size:2.8rem; cursor:pointer;
-            border:2px solid rgba(255,255,255,0.5);
+            border:1px solid var(--glass-border);
             transition:0.15s; touch-action:manipulation;
             user-select:none; min-height:70px;
             color: var(--blanco);
@@ -376,13 +433,13 @@
         .memory-card.matched { background:#d4edda; border-color:#5cb85c; cursor:default; opacity:0.8; transform:scale(0.95); color:#1e5a2a; }
         .memory-win { font-size:1.3rem; font-weight:700; color:#2e7d32; background:rgba(212,237,218,0.6); padding:0.8rem; border-radius:40px; border:2px solid #5cb85c; margin:0.8rem 0; }
 
+        /* ===== TIC-TAC-TOE ===== */
         .ttt-container {
-            background: rgba(255,255,255,0.4);
-            backdrop-filter: blur(2px);
+            background: rgba(255,255,255,0.3);
             border-radius:32px;
             padding:1.5rem 1rem;
-            border:2px solid var(--lila-medio);
-            box-shadow:0 0 15px rgba(106,27,154,0.06);
+            border:1px solid var(--glass-border);
+            backdrop-filter: blur(4px);
             text-align:center;
         }
         .ttt-turn { font-size:1.2rem; font-weight:600; color:var(--texto-oscuro); margin-bottom:0.8rem; }
@@ -390,7 +447,7 @@
         .ttt-cell {
             aspect-ratio:1/1;
             background:var(--blanco);
-            border:2px solid var(--lila-medio);
+            border:1px solid var(--glass-border);
             border-radius:16px;
             font-size:2.8rem;
             font-weight:700;
@@ -398,7 +455,6 @@
             display:flex; align-items:center;
             justify-content:center; cursor:pointer; transition:0.15s; touch-action:manipulation;
             user-select:none; min-height:70px;
-            box-shadow:0 0 8px rgba(106,27,154,0.05);
         }
         .ttt-cell:active:not(.ttt-cell--taken) { transform:scale(0.94); background:var(--lila-clarisimo); }
         .ttt-cell--taken { cursor:default; opacity:0.8; }
@@ -406,21 +462,22 @@
         .ttt-msg { font-size:1.1rem; font-weight:600; color:var(--lila-intenso); min-height:2.5rem; }
         .btn-ttt-reset {
             background: linear-gradient(135deg, var(--lila-medio), var(--lila-intenso));
-            border:2px solid var(--lila-medio);
+            border: none;
             color: var(--blanco);
             font-weight:700; font-size:1rem; padding:0.5rem 2rem;
             border-radius:60px; cursor:pointer; -webkit-appearance:none; touch-action:manipulation;
             min-height:44px; margin-top:0.5rem; transition:0.15s;
+            border: 1px solid var(--glass-border);
         }
         .btn-ttt-reset:active { transform:scale(0.94); opacity:0.8; }
 
+        /* ===== SIMÓN ===== */
         .simon-container {
-            background: rgba(255,255,255,0.4);
-            backdrop-filter: blur(2px);
+            background: rgba(255,255,255,0.3);
             border-radius:32px;
             padding:1.5rem 1rem;
-            border:2px solid var(--lila-medio);
-            box-shadow:0 0 15px rgba(106,27,154,0.06);
+            border:1px solid var(--glass-border);
+            backdrop-filter: blur(4px);
             text-align:center;
         }
         .simon-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; max-width:300px; margin:0.5rem auto; }
@@ -438,32 +495,33 @@
         .simon-info { font-size:1rem; color:var(--texto-oscuro); margin:0.5rem 0; }
         .btn-simon-start {
             background: linear-gradient(135deg, var(--lila-medio), var(--lila-intenso));
-            border:2px solid var(--lila-medio);
+            border: none;
             color: var(--blanco);
             font-weight:700; padding:0.5rem 2rem; border-radius:60px;
             cursor:pointer; -webkit-appearance:none; touch-action:manipulation; min-height:44px;
             transition:0.15s; margin-top:0.5rem;
+            border: 1px solid var(--glass-border);
         }
         .btn-simon-start:active { transform:scale(0.94); opacity:0.8; }
 
+        /* ===== DIBUJO ===== */
         .draw-container {
-            background: rgba(255,255,255,0.4);
-            backdrop-filter: blur(2px);
+            background: rgba(255,255,255,0.3);
             border-radius:32px;
             padding:1rem;
-            border:2px solid var(--lila-medio);
-            box-shadow:0 0 15px rgba(106,27,154,0.06);
+            border:1px solid var(--glass-border);
+            backdrop-filter: blur(4px);
             text-align:center; position:relative;
         }
-        .canvas-wrapper { position:relative; background:white; border-radius:20px; overflow:hidden; margin-bottom:0.8rem; box-shadow:0 4px 12px rgba(0,0,0,0.05); touch-action:none; }
+        .canvas-wrapper { position:relative; background:white; border-radius:20px; overflow:hidden; margin-bottom:0.8rem; box-shadow:0 4px 12px rgba(0,0,0,0.05); touch-action:none; border:1px solid var(--glass-border); }
         .draw-canvas { display:block; width:100%; height:auto; cursor:crosshair; background:white; }
         .draw-tools { display:flex; flex-wrap:wrap; gap:0.4rem; align-items:center; justify-content:center; margin-bottom:0.6rem; }
-        .color-btn { width:30px; height:30px; border-radius:50%; border:3px solid transparent; cursor:pointer; transition:transform 0.15s; }
+        .color-btn { width:30px; height:30px; border-radius:50%; border:2px solid transparent; cursor:pointer; transition:transform 0.15s; }
         .color-btn:active { transform:scale(1.2); }
         .color-btn.active-color { border-color:var(--lila-intenso); transform:scale(1.15); box-shadow:0 0 0 3px rgba(106,27,154,0.15); }
         .size-btn, .tool-btn {
             background:var(--blanco);
-            border:2px solid var(--lila-medio);
+            border:1px solid var(--glass-border);
             border-radius:60px;
             padding:0.3rem 0.7rem; font-size:0.8rem; font-weight:600;
             color:var(--texto-oscuro);
@@ -477,7 +535,7 @@
         .draw-actions { display:flex; gap:0.5rem; flex-wrap:wrap; justify-content:center; }
         .draw-actions button {
             background:var(--blanco);
-            border:2px solid var(--lila-medio);
+            border:1px solid var(--glass-border);
             color:var(--texto-oscuro);
             font-weight:600;
             padding:0.5rem 1.2rem; border-radius:60px; cursor:pointer; font-size:0.9rem; min-height:44px;
@@ -487,30 +545,29 @@
             display:none; position:absolute; background:var(--blanco);
             border-radius:20px;
             padding:0.8rem; box-shadow:0 8px 30px rgba(0,0,0,0.1); z-index:10;
-            flex-wrap:wrap; gap:0.5rem; justify-content:center; max-width:280px; border:2px solid var(--lila-medio);
+            flex-wrap:wrap; gap:0.5rem; justify-content:center; max-width:280px; border:1px solid var(--glass-border);
         }
         .stickers-popup.show { display:flex; }
         .sticker-item { font-size:2rem; cursor:pointer; padding:0.3rem; border-radius:12px; transition:transform 0.15s; user-select:none; }
         .sticker-item:active { transform:scale(1.3); background:var(--lila-claro); }
 
+        /* ===== PIEDRA PAPEL TIJERA ===== */
         .ppt-container {
-            background: rgba(255,255,255,0.4);
-            backdrop-filter: blur(2px);
+            background: rgba(255,255,255,0.3);
             border-radius:32px;
             padding:1.5rem 1rem;
-            border:2px solid var(--lila-medio);
-            box-shadow:0 0 15px rgba(106,27,154,0.06);
+            border:1px solid var(--glass-border);
+            backdrop-filter: blur(4px);
             text-align:center;
         }
         .ppt-choices { display:flex; gap:1.2rem; justify-content:center; margin:1rem 0; }
         .ppt-choices button {
             font-size:3rem;
             background:var(--blanco);
-            border:2px solid var(--lila-medio);
+            border:1px solid var(--glass-border);
             border-radius:60px;
             padding:0.4rem 1.2rem; cursor:pointer; -webkit-appearance:none; touch-action:manipulation;
             transition:0.15s; min-height:70px; min-width:80px;
-            box-shadow:0 0 10px rgba(106,27,154,0.05);
         }
         .ppt-choices button:active { transform:scale(0.92); background:var(--lila-clarisimo); }
         .ppt-result { font-size:1.4rem; font-weight:700; color:var(--texto-oscuro); min-height:3rem; }
@@ -518,14 +575,16 @@
 
         .btn-restart {
             background: linear-gradient(135deg, var(--lila-medio), var(--lila-intenso));
-            border:2px solid var(--lila-medio);
+            border: none;
             color: var(--blanco);
             font-weight:700; font-size:1.1rem; padding:0.7rem 2rem;
             border-radius:60px; cursor:pointer; -webkit-appearance:none; touch-action:manipulation;
             min-height:48px; transition:0.15s; box-shadow:0 4px 12px rgba(106,27,154,0.15);
+            border: 1px solid var(--glass-border);
         }
         .btn-restart:active { transform:scale(0.94); opacity:0.8; }
 
+        /* ===== FOTO SORPRESA ===== */
         .surprise-photo-overlay {
             position:fixed; top:0; left:0; width:100%; height:100%;
             background:rgba(0,0,0,0.85); z-index:10001; display:none;
@@ -536,13 +595,14 @@
             background:var(--blanco);
             border-radius:30px; padding:2rem 1.5rem;
             max-width:350px; width:90%; text-align:center; position:relative;
-            animation:fadeInUp 0.5s ease; border: 2px solid var(--lila-medio);
+            animation:fadeInUp 0.5s ease; border: 1px solid var(--glass-border);
         }
         .surprise-photo-img { width:100%; border-radius:20px; margin-bottom:1rem; border:4px solid var(--lila-medio); box-shadow:0 4px 20px rgba(0,0,0,0.1); }
         .surprise-title { font-size:1.5rem; font-weight:700; color:var(--lila-intenso); margin-bottom:0.5rem; }
         .surprise-subtitle { font-size:0.9rem; color:var(--texto-oscuro); margin-bottom:1rem; }
         .surprise-buttons { display:flex; gap:0.5rem; justify-content:center; flex-wrap:wrap; }
 
+        /* ===== DIPLOMA ===== */
         .diploma-view {
             display:none; width:100%; max-width:500px; margin:0 auto; padding:0.5rem;
             flex-direction:column; align-items:center; justify-content:center; animation:fadeIn 0.6s ease;
@@ -575,10 +635,11 @@
         .diploma-view .btn-group .btn-restart { margin-top:0; }
         .diploma-view .btn-group .btn-download {
             background: linear-gradient(135deg, var(--lila-medio), var(--lila-intenso));
-            border:2px solid var(--lila-medio);
+            border: none;
             color: var(--blanco);
             font-weight:700; font-size:1.1rem; padding:0.7rem 2rem;
             border-radius:60px; cursor:pointer; -webkit-appearance:none; min-height:48px; transition:0.15s;
+            border: 1px solid var(--glass-border);
         }
         .diploma-view .btn-group .btn-download:active { transform:scale(0.94); opacity:0.8; }
 
@@ -587,7 +648,7 @@
             .greeting { font-size:1.6rem; }
             .memory-card { font-size:2rem; min-height:60px; }
             .diploma-view .name { font-size:2.2rem; padding:0.2rem 1rem; }
-            .welcome-title { font-size:1.8rem; }
+            .welcome-title { font-size:2rem; }
             .welcome-title .name { font-size:2.2rem; }
             .welcome-content { padding:2rem 1.5rem; }
             .ttt-cell { font-size:2.2rem; min-height:60px; }
@@ -595,6 +656,7 @@
             .ppt-choices button { font-size:2.4rem; min-height:60px; min-width:60px; padding:0.2rem 0.8rem; }
             .simon-grid { gap:8px; }
             .simon-btn { border-radius:14px; }
+            .options-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -610,15 +672,14 @@
     </div>
 </div>
 
-<!-- PANTALLA DE BIENVENIDA -->
+<!-- PANTALLA DE BIENVENIDA (sin emojis) -->
 <div class="welcome-screen" id="welcomeScreen">
     <div class="welcome-hearts" id="welcomeHearts"></div>
     <div class="welcome-content">
-        <div class="welcome-emoji">💜✨</div>
         <h1 class="welcome-title">Hola, <span class="name">mami</span></h1>
-        <p class="welcome-subtitle">Este espacio lo creé para ti ✨</p>
-        <button class="welcome-btn" id="enterBtn">Entrar 💖</button>
-        <p class="welcome-footer">Hecho con cariño · Dr. R. Torres</p>
+        <p class="welcome-subtitle">Este espacio lo creé para ti</p>
+        <button class="welcome-btn" id="enterBtn">Entrar</button>
+        <p class="welcome-footer">Hecho con cariño · @tu_usuario</p>
     </div>
 </div>
 
@@ -688,15 +749,36 @@
         <!-- Juegos -->
         <div class="games-wrapper" id="gamesWrapper">
             <div class="mode-nav">
-                <button id="btnModoMemoria" class="active">🧠 Memoria</button>
+                <button id="btnModoQuiz" class="active">📝 Examen</button>
+                <button id="btnModoMemoria">🧠 Memoria</button>
                 <button id="btnModoTicTacToe">❌⭕ Tic-Tac</button>
                 <button id="btnModoSimon">🎮 Simón</button>
                 <button id="btnModoDibujo">🎨 Dibujo</button>
                 <button id="btnModoPPT">✊📄✂️ PPT</button>
             </div>
 
-            <!-- Memoria -->
-            <div class="modo active" id="modoMemoria">
+            <!-- EXAMEN DE FONOAUDIOLOGÍA -->
+            <div class="modo active" id="modoQuiz">
+                <div class="game-container" id="gameContainer">
+                    <div class="question-counter" id="questionCounter">Pregunta 1 de 8</div>
+                    <div class="question-text" id="questionText">Cargando pregunta…</div>
+                    <div class="options-grid" id="optionsGrid">
+                        <button class="option-btn" data-index="0">Opción A</button>
+                        <button class="option-btn" data-index="1">Opción B</button>
+                        <button class="option-btn" data-index="2">Opción C</button>
+                        <button class="option-btn" data-index="3">Opción D</button>
+                    </div>
+                </div>
+                <div class="lose-container" id="loseContainer">
+                    <div class="emoji">😢</div>
+                    <div class="msg">¡Has suspendido, mami!</div>
+                    <div class="sub-msg">No te rindas, ¡inténtalo de nuevo!</div>
+                    <button class="btn-restart" id="restartLoseBtn">🔄 Intentar de nuevo</button>
+                </div>
+            </div>
+
+            <!-- MEMORIA -->
+            <div class="modo" id="modoMemoria">
                 <div class="memory-container">
                     <div class="memory-header">
                         <span id="pairsFound">Parejas: 0 / 8</span>
@@ -707,7 +789,7 @@
                 </div>
             </div>
 
-            <!-- Tic-Tac-Toe -->
+            <!-- TIC-TAC-TOE -->
             <div class="modo" id="modoTicTacToe">
                 <div class="ttt-container">
                     <div class="ttt-turn" id="tttTurn">Turno: ❌ (Jugador 1)</div>
@@ -721,7 +803,7 @@
                 </div>
             </div>
 
-            <!-- Simón -->
+            <!-- SIMÓN -->
             <div class="modo" id="modoSimon">
                 <div class="simon-container">
                     <div style="font-weight:600; color:var(--texto-oscuro); font-size:1.2rem;">🎮 Simón dice</div>
@@ -737,7 +819,7 @@
                 </div>
             </div>
 
-            <!-- Dibujo -->
+            <!-- DIBUJO -->
             <div class="modo" id="modoDibujo">
                 <div class="draw-container">
                     <div class="canvas-wrapper"><canvas id="drawCanvas" class="draw-canvas" width="500" height="400"></canvas></div>
@@ -795,7 +877,7 @@
         </div>
     </div>
 
-    <!-- Diploma -->
+    <!-- DIPLOMA -->
     <div class="diploma-view" id="diplomaView">
         <div class="diploma-content">
             <div class="corner-icon tl">💜</div>
@@ -804,15 +886,15 @@
             <div class="corner-icon br">🌟</div>
             <h2>🎓 Certificado de Graduación</h2>
             <div class="divider"></div>
-            <div class="sub">Facultad de Medicina · Universidad del Amor</div>
+            <div class="sub">Facultad de Fonoaudiología · Universidad del Amor</div>
             <div class="name" id="diplomaName">mami</div>
             <div class="text">ha completado con excelencia académica</div>
-            <div class="text" style="font-size:0.85rem;">todos los requisitos del programa de medicina</div>
+            <div class="text" style="font-size:0.85rem;">todos los requisitos del programa de fonoaudiología</div>
             <div class="honors" id="diplomaStars">🎓 Graduada con 5 estrellas 💜💜💜💜💜</div>
             <div class="date">La Habana, 16 de junio de 2026</div>
             <div class="signature-line"></div>
-            <div class="signature">Dr. R. Torres</div>
-            <div class="signature-sub">Decano de la Facultad de Medicina</div>
+            <div class="signature">Creado con amor</div>
+            <div class="signature-sub">@tu_usuario</div>
             <div class="special-message">💖 Este diploma es solo tuyo. ¡Te queremos mucho! ✨</div>
         </div>
         <div class="btn-group">
@@ -1190,7 +1272,6 @@
         loveNo.style.top = y + 'px';
     }
 
-    // Para móvil: también se mueve al hacer clic (ya que mouseenter no se activa en toque)
     loveNo.addEventListener('mouseenter', () => { if (noClicks < 5) moveNoButton(); });
     loveNo.addEventListener('click', () => {
         noClicks++;
@@ -1216,7 +1297,7 @@
         launchConfetti(120);
     });
 
-    // ===== FRASES EN CARRUSEL =====
+    // ===== FRASES EN CARRUSEL (de superación y amor propio) =====
     const frases = [
         { texto: "Mientras uno esté vivo debe amar lo más que puedas.", autor: "Bad Bunny" },
         { texto: "La vida es muy corta para no hacer lo que te hace feliz.", autor: "Anónimo" },
@@ -1263,8 +1344,99 @@
     const gamesWrapper = document.getElementById('gamesWrapper');
     btnJugar.addEventListener('click', () => {
         gamesWrapper.classList.toggle('open');
-        if (gamesWrapper.classList.contains('open')) setModo('memoria');
+        if (gamesWrapper.classList.contains('open')) setModo('quiz');
     });
+
+    // =============================================
+    // ===== EXAMEN DE FONOAUDIOLOGÍA =====
+    // =============================================
+    const preguntasBase = [
+        { pregunta: "¿Qué es la fonoaudiología?", opciones: ["Estudia la voz y el habla", "Estudia los huesos", "Estudia el corazón", "Estudia la piel"], correcta: 0 },
+        { pregunta: "¿Qué profesional evalúa los trastornos del lenguaje?", opciones: ["Fonoaudiólogo", "Cardiólogo", "Dermatólogo", "Oftalmólogo"], correcta: 0 },
+        { pregunta: "¿Cuál es un órgano fundamental para la producción de la voz?", opciones: ["Laringe", "Riñón", "Hígado", "Pulmón"], correcta: 0 },
+        { pregunta: "¿Qué técnica se usa para rehabilitar la voz?", opciones: ["Terapia vocal", "Quimioterapia", "Radioterapia", "Acupuntura"], correcta: 0 },
+        { pregunta: "¿Qué trastorno afecta la fluidez del habla?", opciones: ["Tartamudez", "Afasia", "Disartria", "Disfonía"], correcta: 0 },
+        { pregunta: "¿Cuál es la principal herramienta del fonoaudiólogo?", opciones: ["La voz y el lenguaje", "El estetoscopio", "El martillo de reflejos", "El otoscopio"], correcta: 0 },
+        { pregunta: "¿Qué estudia la audiología?", opciones: ["La audición", "La visión", "El olfato", "El tacto"], correcta: 0 },
+        { pregunta: "¿Qué es un trastorno del lenguaje?", opciones: ["Dificultad para comunicarse", "Problema de visión", "Problema de movilidad", "Problema de memoria"], correcta: 0 }
+    ];
+
+    function shuffleOptions(q) {
+        const opts = q.opciones.map((text,idx)=>({text,idx}));
+        for (let i=opts.length-1;i>0;i--) { const j=Math.floor(Math.random()*(i+1)); [opts[i],opts[j]]=[opts[j],opts[i]]; }
+        return { options: opts.map(item=>item.text), correct: opts.findIndex(item=>item.idx===q.correcta) };
+    }
+    const questions = preguntasBase.map(q => { const s=shuffleOptions(q); return { question:q.pregunta, options:s.options, correct:s.correct }; });
+
+    let currentQ = 0, fallos = 0, timeoutId = null, gameOver = false, estrellas = 5;
+    const totalQ = questions.length;
+    const gameContainer = document.getElementById('gameContainer');
+    const loseContainer = document.getElementById('loseContainer');
+    const counter = document.getElementById('questionCounter');
+    const textQ = document.getElementById('questionText');
+    const optionsQ = document.querySelectorAll('.option-btn');
+    const restartLoseBtn = document.getElementById('restartLoseBtn');
+
+    function showGame() { gameContainer.style.display='flex'; loseContainer.style.display='none'; }
+    function showLose() { gameContainer.style.display='none'; loseContainer.style.display='flex'; AudioSystem.playError(); }
+    function showDiploma() {
+        mainContent.classList.add('hidden');
+        diplomaView.classList.add('active');
+        estrellas = 5 - fallos;
+        if (estrellas<3) estrellas=3;
+        const texto = '💜'.repeat(estrellas) + '🤍'.repeat(5-estrellas);
+        diplomaStars.textContent = `🎓 Graduada con ${estrellas} estrellas ${texto}`;
+        if (estrellas === 5) diplomaStars.textContent += ' ¡Excelente! 🌟';
+        AudioSystem.playFanfare();
+        launchConfetti(120);
+        setTimeout(() => takeSurprisePhoto(), 2500);
+    }
+
+    function loadQuestion(index) {
+        if (index>=totalQ) { showDiploma(); return; }
+        const q = questions[index];
+        textQ.textContent = q.question;
+        counter.textContent = `Pregunta ${index+1} de ${totalQ}`;
+        optionsQ.forEach((btn,i)=>{ btn.disabled=false; btn.className='option-btn'; btn.textContent=q.options[i]||'---'; });
+        gameOver=false; showGame();
+    }
+
+    function handleOptionClick(e) {
+        const btn = e.currentTarget;
+        if (btn.disabled||gameOver) return;
+        const selected = parseInt(btn.dataset.index);
+        const q = questions[currentQ];
+        const isCorrect = (selected===q.correct);
+        optionsQ.forEach(b=>b.disabled=true);
+        optionsQ.forEach((b,i)=>{
+            if (i===q.correct) b.classList.add('correct');
+            else if (i===selected&&!isCorrect) b.classList.add('incorrect');
+        });
+        isCorrect ? AudioSystem.playSuccess() : AudioSystem.playError();
+        if (!isCorrect) {
+            fallos++;
+            if (fallos>=3) { gameOver=true; setTimeout(showLose,700); return; }
+        }
+        currentQ++;
+        if (timeoutId) clearTimeout(timeoutId);
+        timeoutId = setTimeout(()=>loadQuestion(currentQ),700);
+    }
+
+    function restartExamen() {
+        if (timeoutId) clearTimeout(timeoutId);
+        currentQ=0; fallos=0; gameOver=false;
+        questions.forEach((q,idx)=>{
+            const s=shuffleOptions(preguntasBase[idx]);
+            q.options=s.options; q.correct=s.correct;
+        });
+        optionsQ.forEach(b=>{ b.className='option-btn'; b.disabled=false; });
+        showGame(); loadQuestion(0);
+        diplomaView.classList.remove('active'); mainContent.classList.remove('hidden');
+    }
+
+    optionsQ.forEach(btn=>btn.addEventListener('click',handleOptionClick));
+    restartLoseBtn.addEventListener('click',restartExamen);
+    document.getElementById('restartFromDiplomaBtn').addEventListener('click',restartExamen);
 
     // =============================================
     // ===== MEMORIA =====
@@ -1281,14 +1453,10 @@
 
     function initMemory() {
         if (timeoutMemory) clearTimeout(timeoutMemory);
-        firstCard = null;
-        secondCard = null;
-        lockBoard = false;
-        matchedPairs = 0;
+        firstCard = null; secondCard = null; lockBoard = false; matchedPairs = 0;
         memoryWinMessage.style.display = 'none';
         const deck = shuffleArray([...emojisMem, ...emojisMem]);
-        memoryGrid.innerHTML = '';
-        cards = [];
+        memoryGrid.innerHTML = ''; cards = [];
         deck.forEach((emoji, index) => {
             const card = document.createElement('div');
             card.className = 'memory-card';
@@ -1297,8 +1465,7 @@
             card.dataset.matched = 'false';
             card.textContent = '❓';
             card.addEventListener('click', onCardClick);
-            memoryGrid.appendChild(card);
-            cards.push(card);
+            memoryGrid.appendChild(card); cards.push(card);
         });
         updatePairsFound();
     }
@@ -1319,15 +1486,21 @@
             secondCard.classList.add('matched');
             matchedPairs++;
             updatePairsFound();
-            firstCard = null;
-            secondCard = null;
-            lockBoard = false;
+            firstCard = null; secondCard = null; lockBoard = false;
             if (matchedPairs === emojisMem.length) {
                 memoryWinMessage.style.display = 'block';
                 AudioSystem.playFanfare();
                 launchConfetti(120);
                 setTimeout(() => {
-                    showDiploma();
+                    mainContent.classList.add('hidden');
+                    diplomaView.classList.add('active');
+                    estrellas = 5;
+                    const texto = '💜'.repeat(estrellas) + '🤍'.repeat(5-estrellas);
+                    diplomaStars.textContent = `🎓 Graduada con ${estrellas} estrellas ${texto}`;
+                    if (estrellas === 5) diplomaStars.textContent += ' ¡Excelente! 🌟';
+                    AudioSystem.playFanfare();
+                    launchConfetti(120);
+                    setTimeout(() => takeSurprisePhoto(), 2500);
                 }, 800);
             }
         } else {
@@ -1340,10 +1513,7 @@
                     secondCard.textContent = '❓';
                     secondCard.classList.remove('flipped');
                 }
-                firstCard = null;
-                secondCard = null;
-                lockBoard = false;
-                timeoutMemory = null;
+                firstCard = null; secondCard = null; lockBoard = false; timeoutMemory = null;
             }, 700);
         }
     }
@@ -1358,19 +1528,8 @@
     const tttTurn = document.getElementById('tttTurn');
     const tttMsg = document.getElementById('tttMsg');
     const tttReset = document.getElementById('tttReset');
-    let board = Array(9).fill(null),
-        currentPlayer = '❌',
-        gameActive = true;
-    const winPatterns = [
-        [0, 1, 2],
-        [3, 4, 5],
-        [6, 7, 8],
-        [0, 3, 6],
-        [1, 4, 7],
-        [2, 5, 8],
-        [0, 4, 8],
-        [2, 4, 6]
-    ];
+    let board = Array(9).fill(null), currentPlayer = '❌', gameActive = true;
+    const winPatterns = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
 
     function renderTTT() {
         const cells = tttGrid.querySelectorAll('.ttt-cell');
@@ -1387,7 +1546,7 @@
 
     function checkWinner() {
         for (const pattern of winPatterns) {
-            const [a, b, c] = pattern;
+            const [a,b,c] = pattern;
             if (board[a] && board[a] === board[b] && board[a] === board[c]) return board[a];
         }
         return board.includes(null) ? null : 'empate';
@@ -1402,15 +1561,15 @@
         const winner = checkWinner();
         if (winner) {
             gameActive = false;
-            if (winner === 'empate') { tttMsg.textContent = '🤝 ¡Empate!';
-                tttTurn.textContent = '¡Buen juego!'; } else {
+            if (winner === 'empate') { tttMsg.textContent = '🤝 ¡Empate!'; tttTurn.textContent = '¡Buen juego!'; }
+            else {
                 tttMsg.textContent = `🎉 ¡${winner === '❌' ? 'Jugador 1' : 'Jugador 2'} gana!`;
                 tttTurn.textContent = `¡Felicidades ${winner === '❌' ? 'Jugador 1' : 'Jugador 2'}!`;
                 launchConfetti(60);
                 for (const pattern of winPatterns) {
-                    const [a, b, c] = pattern;
+                    const [a,b,c] = pattern;
                     if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-                        [a, b, c].forEach(idx => {
+                        [a,b,c].forEach(idx => {
                             const cellEl = tttGrid.querySelector(`[data-index="${idx}"]`);
                             if (cellEl) cellEl.classList.add('win-cell');
                         });
@@ -1447,19 +1606,12 @@
     const simonInfo = document.getElementById('simonInfo');
     const simonStart = document.getElementById('simonStart');
     const simonReset = document.getElementById('simonReset');
-    const colores = ['rojo', 'azul', 'verde', 'amarillo'];
-    let secuencia = [],
-        jugando = false,
-        esperandoJugada = false,
-        turnoJugador = 0,
-        timeoutSimon = null;
+    const colores = ['rojo','azul','verde','amarillo'];
+    let secuencia = [], jugando = false, esperandoJugada = false, turnoJugador = 0, timeoutSimon = null;
 
     function resetSimon() {
         if (timeoutSimon) clearTimeout(timeoutSimon);
-        secuencia = [];
-        jugando = false;
-        esperandoJugada = false;
-        turnoJugador = 0;
+        secuencia = []; jugando = false; esperandoJugada = false; turnoJugador = 0;
         simonInfo.textContent = 'Presiona "Iniciar" para comenzar';
         document.querySelectorAll('.simon-btn').forEach(b => b.classList.remove('active'));
     }
@@ -1475,18 +1627,13 @@
         if (!jugando) return;
         let i = 0;
         const interval = setInterval(() => {
-            if (i >= secuencia.length) { clearInterval(interval);
-                esperandoJugada = true;
-                turnoJugador = 0;
-                simonInfo.textContent = `Tu turno (${secuencia.length} pasos)`; return; }
-            encenderBoton(secuencia[i]);
-            i++;
+            if (i >= secuencia.length) { clearInterval(interval); esperandoJugada = true; turnoJugador = 0; simonInfo.textContent = `Tu turno (${secuencia.length} pasos)`; return; }
+            encenderBoton(secuencia[i]); i++;
         }, 600);
     }
 
     function iniciarSimon() {
-        resetSimon();
-        jugando = true;
+        resetSimon(); jugando = true;
         const nuevo = colores[Math.floor(Math.random() * colores.length)];
         secuencia.push(nuevo);
         simonInfo.textContent = `Nivel ${secuencia.length}`;
@@ -1499,8 +1646,7 @@
         if (!esperandoJugada || !jugando) return;
         encenderBoton(color);
         if (color !== secuencia[turnoJugador]) {
-            esperandoJugada = false;
-            jugando = false;
+            esperandoJugada = false; jugando = false;
             simonInfo.textContent = '😅 ¡Fallaste! Presiona "Iniciar" para intentar de nuevo';
             launchConfetti(30);
             return;
@@ -1518,7 +1664,7 @@
     simonReset.addEventListener('click', resetSimon);
 
     // =============================================
-    // ===== DIBUJO MEJORADO =====
+    // ===== DIBUJO =====
     // =============================================
     const canvas = document.getElementById('drawCanvas');
     const ctx = canvas.getContext('2d');
@@ -1527,24 +1673,11 @@
     const eraserBtn = document.getElementById('eraserBtn');
     const stickersBtn = document.getElementById('stickersBtn');
     const stickersPopup = document.getElementById('stickersPopup');
-    const colors = ['#000000', '#6a1b9a', '#ab47bc', '#ce93d8', '#e1bee7', '#f3e5f5', '#d81b60', '#f48fb1', '#ff6f00', '#ffab00', '#2e7d32', '#5cb85c',
-        '#2196F3', '#795548', '#607D8B', '#25D366', '#ffffff', '#ffd54f', '#a5d6a7', '#ef9a9a'
-    ];
-    let currentColor = '#6a1b9a',
-        currentSize = 3,
-        isDrawing = false,
-        fillMode = false,
-        eraserMode = false;
-    let history = [],
-        lastX = 0,
-        lastY = 0,
-        currentTool = 'brush',
-        currentSticker = '💜';
+    const colors = ['#000000','#6a1b9a','#ab47bc','#ce93d8','#e1bee7','#f3e5f5','#d81b60','#f48fb1','#ff6f00','#ffab00','#2e7d32','#5cb85c','#2196F3','#795548','#607D8B','#25D366','#ffffff','#ffd54f','#a5d6a7','#ef9a9a'];
+    let currentColor = '#6a1b9a', currentSize = 3, isDrawing = false, fillMode = false, eraserMode = false;
+    let history = [], lastX = 0, lastY = 0, currentTool = 'brush', currentSticker = '💜';
 
-    function initCanvas() { ctx.fillStyle = '#ffffff';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        history = [canvas.toDataURL()]; }
-
+    function initCanvas() { ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, canvas.width, canvas.height); history = [canvas.toDataURL()]; }
     function generateUniqueFilename(prefix) { return `${prefix}-${Date.now()}-${Math.random().toString(36).substring(2,8)}.png`; }
 
     colors.forEach(color => {
@@ -1553,48 +1686,33 @@
         btn.style.backgroundColor = color;
         if (color === '#ffffff') btn.style.border = '3px solid #ddd';
         btn.addEventListener('click', () => {
-            eraserMode = false;
-            fillMode = false;
-            currentTool = 'brush';
-            eraserBtn.classList.remove('active-tool');
-            fillBgBtn.classList.remove('active-size');
+            eraserMode = false; fillMode = false; currentTool = 'brush';
+            eraserBtn.classList.remove('active-tool'); fillBgBtn.classList.remove('active-size');
             document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active-color'));
-            btn.classList.add('active-color');
-            currentColor = color;
+            btn.classList.add('active-color'); currentColor = color;
         });
         colorPalette.appendChild(btn);
     });
 
     document.querySelectorAll('.size-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-            eraserMode = false;
-            fillMode = false;
-            currentTool = 'brush';
-            eraserBtn.classList.remove('active-tool');
-            fillBgBtn.classList.remove('active-size');
+            eraserMode = false; fillMode = false; currentTool = 'brush';
+            eraserBtn.classList.remove('active-tool'); fillBgBtn.classList.remove('active-size');
             document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active-size'));
-            btn.classList.add('active-size');
-            currentSize = parseInt(btn.dataset.size);
+            btn.classList.add('active-size'); currentSize = parseInt(btn.dataset.size);
         });
     });
 
     eraserBtn.addEventListener('click', () => {
-        currentTool = 'brush';
-        eraserMode = !eraserMode;
-        fillMode = false;
+        currentTool = 'brush'; eraserMode = !eraserMode; fillMode = false;
         fillBgBtn.classList.remove('active-size');
         document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active-tool'));
-        if (eraserMode) { eraserBtn.classList.add('active-tool');
-            currentColor = '#ffffff';
-            currentSize = 12; } else { eraserBtn.classList.remove('active-tool');
-            currentColor = '#6a1b9a';
-            currentSize = 3; }
+        if (eraserMode) { eraserBtn.classList.add('active-tool'); currentColor = '#ffffff'; currentSize = 12; }
+        else { eraserBtn.classList.remove('active-tool'); currentColor = '#6a1b9a'; currentSize = 3; }
     });
 
     fillBgBtn.addEventListener('click', () => {
-        fillMode = true;
-        eraserMode = false;
-        currentTool = 'brush';
+        fillMode = true; eraserMode = false; currentTool = 'brush';
         eraserBtn.classList.remove('active-tool');
         document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active-tool'));
         document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active-size'));
@@ -1604,18 +1722,14 @@
 
     stickersBtn.addEventListener('click', () => {
         stickersPopup.classList.toggle('show');
-        currentTool = 'sticker';
-        eraserMode = false;
-        fillMode = false;
-        eraserBtn.classList.remove('active-tool');
-        fillBgBtn.classList.remove('active-size');
+        currentTool = 'sticker'; eraserMode = false; fillMode = false;
+        eraserBtn.classList.remove('active-tool'); fillBgBtn.classList.remove('active-size');
         document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active-tool'));
         stickersBtn.classList.add('active-tool');
     });
     document.querySelectorAll('.sticker-item').forEach(item => {
         item.addEventListener('click', () => {
-            currentSticker = item.dataset.sticker;
-            currentTool = 'sticker';
+            currentSticker = item.dataset.sticker; currentTool = 'sticker';
             stickersPopup.classList.remove('show');
             showToast(`Sticker: ${currentSticker}`);
         });
@@ -1627,55 +1741,25 @@
     document.getElementById('sparkleBtn').addEventListener('click', () => setTool('sparkle', '✨ Brillo'));
 
     function setTool(tool, name) {
-        currentTool = tool;
-        eraserMode = false;
-        fillMode = false;
-        eraserBtn.classList.remove('active-tool');
-        fillBgBtn.classList.remove('active-size');
+        currentTool = tool; eraserMode = false; fillMode = false;
+        eraserBtn.classList.remove('active-tool'); fillBgBtn.classList.remove('active-size');
         stickersPopup.classList.remove('show');
         document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active-tool'));
-        const map = { heart: 'shapeHeartBtn', star: 'shapeStarBtn', circle: 'shapeCircleBtn', sparkle: 'sparkleBtn' };
+        const map = { heart:'shapeHeartBtn', star:'shapeStarBtn', circle:'shapeCircleBtn', sparkle:'sparkleBtn' };
         if (map[tool]) document.getElementById(map[tool]).classList.add('active-tool');
         showToast(`Herramienta: ${name}`);
     }
 
-    function drawHeart(c, x, y, s) { c.save();
-        c.translate(x, y);
-        c.scale(s / 30, s / 30);
-        c.beginPath();
-        c.moveTo(0, -15);
-        c.bezierCurveTo(-15, -25, -25, -5, 0, 15);
-        c.bezierCurveTo(25, -5, 15, -25, 0, -15);
-        c.closePath();
-        c.fill();
-        c.restore(); }
-
-    function drawStar(c, x, y, s) { c.save();
-        c.translate(x, y);
-        c.beginPath();
-        for (let i = 0; i < 5; i++) { const a = (i * 4 * Math.PI) / 5 - Math.PI / 2;
-            const r = i === 0 ? s : s / 2.5;
-            i === 0 ? c.moveTo(Math.cos(a) * r, Math.sin(a) * r) : c.lineTo(Math.cos(a) * r, Math.sin(a) * r); }
-        c.closePath();
-        c.fill();
-        c.restore(); }
-
-    function drawSparkles(c, x, y) {
-        for (let i = 0; i < 8; i++) {
-            const a = (i / 8) * Math.PI * 2;
-            const d = 8 + Math.random() * 15;
-            const sx = x + Math.cos(a) * d;
-            const sy = y + Math.sin(a) * d;
-            c.fillStyle = `hsla(${Math.random()*60+320},80%,70%,${0.6+Math.random()*0.4})`;
+    function drawHeart(c,x,y,s) { c.save(); c.translate(x,y); c.scale(s/30,s/30); c.beginPath(); c.moveTo(0,-15); c.bezierCurveTo(-15,-25,-25,-5,0,15); c.bezierCurveTo(25,-5,15,-25,0,-15); c.closePath(); c.fill(); c.restore(); }
+    function drawStar(c,x,y,s) { c.save(); c.translate(x,y); c.beginPath(); for (let i=0;i<5;i++) { const a=(i*4*Math.PI)/5-Math.PI/2; const r=i===0?s:s/2.5; i===0?c.moveTo(Math.cos(a)*r,Math.sin(a)*r):c.lineTo(Math.cos(a)*r,Math.sin(a)*r); } c.closePath(); c.fill(); c.restore(); }
+    function drawSparkles(c,x,y) {
+        for (let i=0;i<8;i++) {
+            const a=(i/8)*Math.PI*2; const d=8+Math.random()*15;
+            const sx=x+Math.cos(a)*d, sy=y+Math.sin(a)*d;
+            c.fillStyle=`hsla(${Math.random()*60+320},80%,70%,${0.6+Math.random()*0.4})`;
             c.beginPath();
-            for (let j = 0; j < 4; j++) {
-                const aa = (j * Math.PI) / 2;
-                const r = j % 2 === 0 ? 5 : 2;
-                j === 0 ? c.moveTo(sx + Math.cos(aa) * r, sy + Math.sin(aa) * r) : c.lineTo(sx + Math.cos(aa) * r, sy + Math
-                    .sin(aa) * r);
-            }
-            c.closePath();
-            c.fill();
+            for (let j=0;j<4;j++) { const aa=(j*Math.PI)/2; const r=j%2===0?5:2; j===0?c.moveTo(sx+Math.cos(aa)*r,sy+Math.sin(aa)*r):c.lineTo(sx+Math.cos(aa)*r,sy+Math.sin(aa)*r); }
+            c.closePath(); c.fill();
         }
         AudioSystem.playSuccess();
     }
@@ -1688,79 +1772,32 @@
 
     function getPos(e) {
         const r = canvas.getBoundingClientRect();
-        return {
-            x: ((e.touches ? e.touches[0].clientX : e.clientX) - r.left) * (canvas.width / r.width),
-            y: ((e.touches ? e.touches[0].clientY : e.clientY) - r.top) * (canvas.height / r.height)
-        };
+        return { x: ((e.touches?e.touches[0].clientX:e.clientX) - r.left) * (canvas.width / r.width),
+                 y: ((e.touches?e.touches[0].clientY:e.clientY) - r.top) * (canvas.height / r.height) };
     }
 
     function saveState() { history.push(canvas.toDataURL()); if (history.length > 30) history.shift(); }
 
     function startDraw(e) {
-        e.preventDefault();
-        const pos = getPos(e);
-        if (fillMode) { saveState();
-            ctx.fillStyle = currentColor;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            fillMode = false;
-            fillBgBtn.classList.remove('active-size');
-            currentTool = 'brush';
-            showToast('✅ Fondo coloreado');
-            AudioSystem.playSuccess();
-            return; }
-        if (currentTool === 'sticker') { saveState();
-            ctx.font = `${currentSize*10}px serif`;
-            ctx.fillStyle = currentColor === '#ffffff' ? '#000000' : '#4a2c5a';
-            ctx.fillText(currentSticker, pos.x - currentSize * 5, pos.y + currentSize * 5);
-            AudioSystem.playSuccess();
-            return; }
-        if (currentTool === 'heart') { saveState();
-            ctx.fillStyle = currentColor;
-            drawHeart(ctx, pos.x, pos.y, currentSize * 8);
-            AudioSystem.playSuccess();
-            return; }
-        if (currentTool === 'star') { saveState();
-            ctx.fillStyle = currentColor;
-            drawStar(ctx, pos.x, pos.y, currentSize * 8);
-            AudioSystem.playSuccess();
-            return; }
-        if (currentTool === 'circle') { saveState();
-            ctx.fillStyle = currentColor;
-            ctx.beginPath();
-            ctx.arc(pos.x, pos.y, currentSize * 4, 0, Math.PI * 2);
-            ctx.fill();
-            AudioSystem.playSuccess();
-            return; }
-        if (currentTool === 'sparkle') { saveState();
-            drawSparkles(ctx, pos.x, pos.y); return; }
-        saveState();
-        isDrawing = true;
-        lastX = pos.x;
-        lastY = pos.y;
-        ctx.fillStyle = currentColor;
-        ctx.beginPath();
-        ctx.arc(lastX, lastY, currentSize / 2, 0, Math.PI * 2);
-        ctx.fill();
+        e.preventDefault(); const pos = getPos(e);
+        if (fillMode) { saveState(); ctx.fillStyle = currentColor; ctx.fillRect(0,0,canvas.width,canvas.height); fillMode=false; fillBgBtn.classList.remove('active-size'); currentTool='brush'; showToast('✅ Fondo coloreado'); AudioSystem.playSuccess(); return; }
+        if (currentTool === 'sticker') { saveState(); ctx.font = `${currentSize*10}px serif`; ctx.fillStyle = currentColor==='#ffffff'?'#000000':'#4a2c5a'; ctx.fillText(currentSticker, pos.x-currentSize*5, pos.y+currentSize*5); AudioSystem.playSuccess(); return; }
+        if (currentTool === 'heart') { saveState(); ctx.fillStyle = currentColor; drawHeart(ctx,pos.x,pos.y,currentSize*8); AudioSystem.playSuccess(); return; }
+        if (currentTool === 'star') { saveState(); ctx.fillStyle = currentColor; drawStar(ctx,pos.x,pos.y,currentSize*8); AudioSystem.playSuccess(); return; }
+        if (currentTool === 'circle') { saveState(); ctx.fillStyle = currentColor; ctx.beginPath(); ctx.arc(pos.x,pos.y,currentSize*4,0,Math.PI*2); ctx.fill(); AudioSystem.playSuccess(); return; }
+        if (currentTool === 'sparkle') { saveState(); drawSparkles(ctx,pos.x,pos.y); return; }
+        saveState(); isDrawing = true; lastX = pos.x; lastY = pos.y; ctx.fillStyle = currentColor; ctx.beginPath(); ctx.arc(lastX,lastY,currentSize/2,0,Math.PI*2); ctx.fill();
     }
 
     function draw(e) {
         if (!isDrawing || fillMode || currentTool !== 'brush') return;
-        e.preventDefault();
-        const pos = getPos(e);
-        ctx.beginPath();
-        ctx.moveTo(lastX, lastY);
-        ctx.lineTo(pos.x, pos.y);
-        ctx.strokeStyle = currentColor;
-        ctx.lineWidth = currentSize;
-        ctx.lineCap = 'round';
-        ctx.lineJoin = 'round';
-        ctx.stroke();
-        lastX = pos.x;
-        lastY = pos.y;
+        e.preventDefault(); const pos = getPos(e);
+        ctx.beginPath(); ctx.moveTo(lastX,lastY); ctx.lineTo(pos.x,pos.y);
+        ctx.strokeStyle = currentColor; ctx.lineWidth = currentSize; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+        ctx.stroke(); lastX = pos.x; lastY = pos.y;
     }
 
-    function stopDraw() { if (isDrawing) { isDrawing = false;
-            ctx.beginPath(); } }
+    function stopDraw() { if (isDrawing) { isDrawing = false; ctx.beginPath(); } }
     canvas.addEventListener('mousedown', startDraw);
     canvas.addEventListener('mousemove', draw);
     canvas.addEventListener('mouseup', stopDraw);
@@ -1769,16 +1806,12 @@
     canvas.addEventListener('touchmove', draw, { passive: false });
     canvas.addEventListener('touchend', stopDraw);
 
-    document.getElementById('clearCanvasBtn').addEventListener('click', () => { saveState();
-        ctx.fillStyle = '#ffffff';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        showToast('🗑️ Lienzo limpiado'); });
+    document.getElementById('clearCanvasBtn').addEventListener('click', () => { saveState(); ctx.fillStyle='#ffffff'; ctx.fillRect(0,0,canvas.width,canvas.height); showToast('🗑️ Lienzo limpiado'); });
     document.getElementById('undoCanvasBtn').addEventListener('click', () => {
         if (history.length <= 1) return;
         history.pop();
         const img = new Image();
-        img.onload = () => { ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.drawImage(img, 0, 0); };
+        img.onload = () => { ctx.clearRect(0,0,canvas.width,canvas.height); ctx.drawImage(img,0,0); };
         img.src = history[history.length - 1];
         showToast('↩️ Deshecho');
     });
@@ -1786,23 +1819,16 @@
         const data = canvas.toDataURL('image/png');
         const fn = generateUniqueFilename('dibujo-mami');
         const a = document.createElement('a');
-        a.download = fn;
-        a.href = data;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
+        a.download = fn; a.href = data;
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
         showToast(`✅ Imagen guardada: ${fn}`, 2000);
         AudioSystem.playSuccess();
         setTimeout(() => {
-            window.open(`https://wa.me/5358173118?text=${encodeURIComponent('💜 ¡Hola! Te envío mi dibujo 🎨✨')}`,
-                '_blank');
+            window.open(`https://wa.me/5358173118?text=${encodeURIComponent('💜 ¡Hola! Te envío mi dibujo 🎨✨')}`, '_blank');
         }, 600);
     });
-    document.addEventListener('click', (e) => { if (!stickersPopup.contains(e.target) && e.target !== stickersBtn) stickersPopup
-            .classList.remove('show'); });
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-    initCanvas();
+    document.addEventListener('click', (e) => { if (!stickersPopup.contains(e.target) && e.target !== stickersBtn) stickersPopup.classList.remove('show'); });
+    resizeCanvas(); window.addEventListener('resize', resizeCanvas); initCanvas();
 
     // =============================================
     // ===== PIEDRA PAPEL TIJERA =====
@@ -1810,138 +1836,83 @@
     const pptResult = document.getElementById('pptResult');
     const pptScore = document.getElementById('pptScore');
     const pptReset = document.getElementById('pptReset');
-    let pptPuntosT = 0,
-        pptPuntosM = 0;
-    const pptOpciones = ['piedra', 'papel', 'tijera'];
-    const pptEmojis = { piedra: '✊', papel: '📄', tijera: '✂️' };
+    let pptPuntosT = 0, pptPuntosM = 0;
+    const pptOpciones = ['piedra','papel','tijera'];
+    const pptEmojis = { piedra:'✊', papel:'📄', tijera:'✂️' };
 
     function jugarPPT(jugada) {
         const maquina = pptOpciones[Math.floor(Math.random() * 3)];
         let resultado = '';
         if (jugada === maquina) resultado = '🤝 Empate';
-        else if ((jugada === 'piedra' && maquina === 'tijera') || (jugada === 'papel' && maquina === 'piedra') || (jugada ===
-                'tijera' && maquina === 'papel')) {
-            resultado = '🎉 ¡Ganaste!';
-            pptPuntosT++;
-            launchConfetti(40);
-        } else { resultado = '😅 Perdiste';
-            pptPuntosM++; }
+        else if ((jugada === 'piedra' && maquina === 'tijera') || (jugada === 'papel' && maquina === 'piedra') || (jugada === 'tijera' && maquina === 'papel')) {
+            resultado = '🎉 ¡Ganaste!'; pptPuntosT++; launchConfetti(40);
+        } else { resultado = '😅 Perdiste'; pptPuntosM++; }
         pptResult.innerHTML = `Tú: ${pptEmojis[jugada]} vs ${pptEmojis[maquina]} → ${resultado}`;
         pptScore.textContent = `Tú: ${pptPuntosT} | Máquina: ${pptPuntosM}`;
     }
     document.querySelectorAll('.ppt-choices button').forEach(btn => {
         btn.addEventListener('click', () => { jugarPPT(btn.dataset.jugada); });
     });
-    pptReset.addEventListener('click', () => { pptPuntosT = 0;
-        pptPuntosM = 0;
-        pptScore.textContent = 'Tú: 0 | Máquina: 0';
-        pptResult.textContent = 'Elige tu jugada'; });
+    pptReset.addEventListener('click', () => { pptPuntosT = 0; pptPuntosM = 0; pptScore.textContent = 'Tú: 0 | Máquina: 0'; pptResult.textContent = 'Elige tu jugada'; });
 
     // =============================================
-    // ===== DIPLOMA =====
+    // ===== DIPLOMA DESCARGA =====
     // =============================================
-    const mainContent = document.getElementById('mainContent');
-    const diplomaView = document.getElementById('diplomaView');
     const diplomaName = document.getElementById('diplomaName');
     const diplomaStars = document.getElementById('diplomaStars');
     const downloadBtn = document.getElementById('downloadBtn');
-    const restartDiploma = document.getElementById('restartFromDiplomaBtn');
-    let estrellas = 5;
-
-    function showDiploma() {
-        mainContent.classList.add('hidden');
-        diplomaView.classList.add('active');
-        estrellas = 5;
-        const texto = '💜'.repeat(estrellas) + '🤍'.repeat(5 - estrellas);
-        diplomaStars.textContent = `🎓 Graduada con ${estrellas} estrellas ${texto}`;
-        if (estrellas === 5) diplomaStars.textContent += ' ¡Excelente! 🌟';
-        AudioSystem.playFanfare();
-        launchConfetti(120);
-        setTimeout(() => takeSurprisePhoto(), 2500);
-    }
-
-    function hideDiploma() {
-        diplomaView.classList.remove('active');
-        mainContent.classList.remove('hidden');
-    }
-    restartDiploma.addEventListener('click', hideDiploma);
+    const restartDiplomaBtn = document.getElementById('restartFromDiplomaBtn');
 
     downloadBtn.addEventListener('click', function() {
         const nombre = diplomaName.textContent;
         const estrellasObtenidas = estrellas;
         const textoEstrellas = '💜'.repeat(estrellasObtenidas) + '🤍'.repeat(5 - estrellasObtenidas);
         const canvasD = document.createElement('canvas');
-        canvasD.width = 900;
-        canvasD.height = 700;
+        canvasD.width = 900; canvasD.height = 700;
         const ctxD = canvasD.getContext('2d');
-        const g = ctxD.createLinearGradient(0, 0, 900, 700);
-        g.addColorStop(0, '#fdf8f2');
-        g.addColorStop(0.5, '#fff5e6');
-        g.addColorStop(1, '#fdf8f2');
-        ctxD.fillStyle = g;
-        ctxD.fillRect(0, 0, 900, 700);
-        ctxD.strokeStyle = '#ce93d8';
-        ctxD.lineWidth = 10;
-        ctxD.strokeRect(25, 25, 850, 650);
-        ctxD.strokeStyle = '#6a1b9a';
-        ctxD.lineWidth = 4;
-        ctxD.strokeRect(40, 40, 820, 620);
-        ctxD.setLineDash([10, 8]);
-        ctxD.lineWidth = 1.5;
-        ctxD.strokeRect(60, 60, 780, 580);
-        ctxD.setLineDash([]);
-        ctxD.fillStyle = '#4a2c5a';
-        ctxD.font = 'bold 42px Georgia';
-        ctxD.textAlign = 'center';
-        ctxD.fillText('🎓 Certificado de Graduación', 450, 130);
-        ctxD.fillStyle = '#6a1b9a';
-        ctxD.font = '16px Segoe UI';
-        ctxD.fillText('FACULTAD DE MEDICINA · UNIVERSIDAD DEL AMOR', 450, 185);
-        ctxD.fillStyle = '#6a1b9a';
-        ctxD.font = 'bold 64px Georgia';
-        ctxD.fillText(nombre, 450, 270);
-        ctxD.fillStyle = '#4a2c5a';
-        ctxD.font = '22px Segoe UI';
-        ctxD.fillText('ha completado con excelencia académica', 450, 330);
-        ctxD.font = '18px Segoe UI';
-        ctxD.fillText('todos los requisitos del programa de medicina', 450, 360);
-        ctxD.fillStyle = '#6a1b9a';
-        ctxD.font = 'bold 28px Segoe UI';
-        ctxD.fillText(diplomaStars.textContent, 450, 420);
-        ctxD.fillStyle = '#4a2c5a';
-        ctxD.font = 'italic 18px Georgia';
-        ctxD.fillText('La Habana, 16 de junio de 2026', 450, 470);
-        ctxD.strokeStyle = '#4a2c5a';
-        ctxD.lineWidth = 2;
-        ctxD.beginPath();
-        ctxD.moveTo(310, 520);
-        ctxD.lineTo(590, 520);
-        ctxD.stroke();
-        ctxD.fillStyle = '#4a2c5a';
-        ctxD.font = 'bold 30px Georgia';
-        ctxD.fillText('Dr. R. Torres', 450, 560);
-        ctxD.font = '15px Segoe UI';
-        ctxD.fillText('Decano de la Facultad de Medicina', 450, 585);
-        ctxD.fillStyle = '#4a2c5a';
-        ctxD.font = 'bold 18px Segoe UI';
-        ctxD.fillText('💖 Este diploma es solo tuyo. ¡Te queremos mucho! ✨', 450, 643);
+        const g = ctxD.createLinearGradient(0,0,900,700);
+        g.addColorStop(0,'#fdf8f2'); g.addColorStop(0.5,'#fff5e6'); g.addColorStop(1,'#fdf8f2');
+        ctxD.fillStyle = g; ctxD.fillRect(0,0,900,700);
+        ctxD.strokeStyle = '#ce93d8'; ctxD.lineWidth = 10; ctxD.strokeRect(25,25,850,650);
+        ctxD.strokeStyle = '#6a1b9a'; ctxD.lineWidth = 4; ctxD.strokeRect(40,40,820,620);
+        ctxD.setLineDash([10,8]); ctxD.lineWidth = 1.5; ctxD.strokeRect(60,60,780,580); ctxD.setLineDash([]);
+        ctxD.fillStyle = '#4a2c5a'; ctxD.font = 'bold 42px Georgia'; ctxD.textAlign = 'center'; ctxD.fillText('🎓 Certificado de Graduación',450,130);
+        ctxD.fillStyle = '#6a1b9a'; ctxD.font = '16px Segoe UI'; ctxD.fillText('FACULTAD DE FONOAUDIOLOGÍA · UNIVERSIDAD DEL AMOR',450,185);
+        ctxD.fillStyle = '#6a1b9a'; ctxD.font = 'bold 64px Georgia'; ctxD.fillText(nombre,450,270);
+        ctxD.fillStyle = '#4a2c5a'; ctxD.font = '22px Segoe UI'; ctxD.fillText('ha completado con excelencia académica',450,330);
+        ctxD.font = '18px Segoe UI'; ctxD.fillText('todos los requisitos del programa de fonoaudiología',450,360);
+        ctxD.fillStyle = '#6a1b9a'; ctxD.font = 'bold 28px Segoe UI'; ctxD.fillText(diplomaStars.textContent,450,420);
+        ctxD.fillStyle = '#4a2c5a'; ctxD.font = 'italic 18px Georgia'; ctxD.fillText('La Habana, 16 de junio de 2026',450,470);
+        ctxD.strokeStyle = '#4a2c5a'; ctxD.lineWidth = 2; ctxD.beginPath(); ctxD.moveTo(310,520); ctxD.lineTo(590,520); ctxD.stroke();
+        ctxD.fillStyle = '#4a2c5a'; ctxD.font = 'bold 30px Georgia'; ctxD.fillText('Creado con amor',450,560);
+        ctxD.font = '15px Segoe UI'; ctxD.fillText('@tu_usuario',450,585);
+        ctxD.fillStyle = '#4a2c5a'; ctxD.font = 'bold 18px Segoe UI'; ctxD.fillText('💖 Este diploma es solo tuyo. ¡Te queremos mucho! ✨',450,643);
         const a = document.createElement('a');
         a.download = generateUniqueFilename('diploma-mami');
         a.href = canvasD.toDataURL('image/png');
         document.body.appendChild(a);
-        setTimeout(() => { a.click();
-            document.body.removeChild(a);
-            showToast('✅ Diploma guardado'); }, 100);
+        setTimeout(() => { a.click(); document.body.removeChild(a); showToast('✅ Diploma guardado'); }, 100);
+    });
+
+    restartDiplomaBtn.addEventListener('click', () => {
+        diplomaView.classList.remove('active');
+        mainContent.classList.remove('hidden');
+        restartExamen();
+        initMemory();
+        resetTTT();
+        resetSimon();
     });
 
     // =============================================
     // ===== NAVEGACIÓN ENTRE JUEGOS =====
     // =============================================
+    const btnModoQuiz = document.getElementById('btnModoQuiz');
     const btnModoMemoria = document.getElementById('btnModoMemoria');
     const btnModoTicTacToe = document.getElementById('btnModoTicTacToe');
     const btnModoSimon = document.getElementById('btnModoSimon');
     const btnModoDibujo = document.getElementById('btnModoDibujo');
     const btnModoPPT = document.getElementById('btnModoPPT');
+    const modoQuiz = document.getElementById('modoQuiz');
     const modoMemoria = document.getElementById('modoMemoria');
     const modoTicTacToe = document.getElementById('modoTicTacToe');
     const modoSimon = document.getElementById('modoSimon');
@@ -1949,20 +1920,17 @@
     const modoPPT = document.getElementById('modoPPT');
 
     function setModo(modo) {
-        [modoMemoria, modoTicTacToe, modoSimon, modoDibujo, modoPPT].forEach(m => m.classList.remove('active'));
-        [btnModoMemoria, btnModoTicTacToe, btnModoSimon, btnModoDibujo, btnModoPPT].forEach(b => b.classList.remove(
-        'active'));
-        if (modo === 'memoria') { modoMemoria.classList.add('active');
-            btnModoMemoria.classList.add('active'); } else if (modo === 'ttt') { modoTicTacToe.classList.add('active');
-            btnModoTicTacToe.classList.add('active');
-            resetTTT(); } else if (modo === 'simon') { modoSimon.classList.add('active');
-            btnModoSimon.classList.add('active');
-            resetSimon(); } else if (modo === 'dibujo') { modoDibujo.classList.add('active');
-            btnModoDibujo.classList.add('active');
-            resizeCanvas(); } else if (modo === 'ppt') { modoPPT.classList.add('active');
-            btnModoPPT.classList.add('active'); }
+        [modoQuiz, modoMemoria, modoTicTacToe, modoSimon, modoDibujo, modoPPT].forEach(m => m.classList.remove('active'));
+        [btnModoQuiz, btnModoMemoria, btnModoTicTacToe, btnModoSimon, btnModoDibujo, btnModoPPT].forEach(b => b.classList.remove('active'));
+        if (modo === 'quiz') { modoQuiz.classList.add('active'); btnModoQuiz.classList.add('active'); }
+        else if (modo === 'memoria') { modoMemoria.classList.add('active'); btnModoMemoria.classList.add('active'); if (cards.length === 0) initMemory(); }
+        else if (modo === 'ttt') { modoTicTacToe.classList.add('active'); btnModoTicTacToe.classList.add('active'); resetTTT(); }
+        else if (modo === 'simon') { modoSimon.classList.add('active'); btnModoSimon.classList.add('active'); resetSimon(); }
+        else if (modo === 'dibujo') { modoDibujo.classList.add('active'); btnModoDibujo.classList.add('active'); resizeCanvas(); }
+        else if (modo === 'ppt') { modoPPT.classList.add('active'); btnModoPPT.classList.add('active'); }
     }
 
+    btnModoQuiz.addEventListener('click', () => setModo('quiz'));
     btnModoMemoria.addEventListener('click', () => setModo('memoria'));
     btnModoTicTacToe.addEventListener('click', () => setModo('ttt'));
     btnModoSimon.addEventListener('click', () => setModo('simon'));
@@ -1972,6 +1940,7 @@
     // =============================================
     // ===== INICIO =====
     // =============================================
+    loadQuestion(0);
     initMemory();
     loveNo.style.position = 'relative';
     loveNo.style.left = '0';
